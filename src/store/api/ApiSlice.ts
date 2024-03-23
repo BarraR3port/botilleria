@@ -13,7 +13,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const api = axios.create({
 	baseURL: API_URL,
-	timeout: 8000,
+	timeout: 8000
 });
 
 api.interceptors.response.use(
@@ -25,11 +25,11 @@ api.interceptors.response.use(
 				method: error.config.method,
 				url: error.config.url,
 				params: error.config.params,
-				data: error.config.data,
+				data: error.config.data
 			});
 		}
 		return Promise.reject(error.message);
-	},
+	}
 );
 
 export interface ApiSlice {
@@ -60,5 +60,5 @@ export const createApiSlice: StateCreator<
 			return response.data;
 		}
 		throw new Error("Error with request Status:", response.status);
-	},
+	}
 });

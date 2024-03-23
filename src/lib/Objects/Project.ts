@@ -28,7 +28,7 @@ export interface Art {
 export enum CreationType {
 	NEW = "new",
 	IMPORT = "import",
-	MIGRATION = "migration",
+	MIGRATION = "migration"
 }
 
 export type IconArtSize = "64x64" | "128x128" | "256x256" | "512x512";
@@ -57,7 +57,7 @@ export enum PackType {
 	WORLD_SKIN = "world_skin",
 	TEXTURE_SKIN = "texture_skin",
 	MASHUP = "mashup",
-	NONE = "none",
+	NONE = "none"
 }
 
 export type SkinResolution = "64x64" | "128x128" | "256x256" | "512x512" | "1024x1024" | null;

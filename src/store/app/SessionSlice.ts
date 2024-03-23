@@ -7,10 +7,7 @@ import { STEVE_SKIN } from "../../lib/Objects/Skin";
 import type { ApiSlice } from "../api/ApiSlice";
 import type { AuthApiSlice } from "../api/AuthApiSlice";
 import type { UserApiSlice } from "../api/UserApiSlice";
-import type { ProjectArtSlice } from "./ProjectArtSlice";
-import type { ProjectSlice } from "./ProjectSlice";
 import type { SettingsSlice } from "./SettingsSlice";
-import type { SkinSlice } from "./SkinSlice";
 import type { UserSlice } from "./UserSlice";
 
 export type LogType = "INFO" | "ERROR" | "WARN" | "DEBUG";
@@ -48,15 +45,7 @@ export type SessionSlice = {
 };
 
 export const createSessionSlice: StateCreator<
-	SessionSlice &
-		UserSlice &
-		ProjectArtSlice &
-		SettingsSlice &
-		SkinSlice &
-		ProjectSlice &
-		ApiSlice &
-		UserApiSlice &
-		AuthApiSlice,
+	SessionSlice & UserSlice & SettingsSlice & ApiSlice & UserApiSlice & AuthApiSlice,
 	[],
 	[],
 	SessionSlice
@@ -75,17 +64,17 @@ export const createSessionSlice: StateCreator<
 		const { sessionUUID: uuid, saveAllData, loadedSession } = get();
 
 		if (!!false && !loadedSession) {
-			const { invoke } = await import("@tauri-apps/api/tauri");
+			const { invoke } = await import("@tauri-apps/api");
 			const { appDataDir, join } = await import("@tauri-apps/api/path");
-			const { exists, readTextFile } = await import("@tauri-apps/api/fs");
+			const { exists, readTextFile } = await import("@tauri-apps/plugin-fs");
 			let sessionUUID = uuid;
 			if (sessionUUID === "") {
 				sessionUUID = await invoke("get_session_uuid", {}).then(async response =>
-					typeof response === "string" ? response : "",
+					typeof response === "string" ? response : ""
 				);
 				set({
 					sessionUUID,
-					loadedSession: true,
+					loadedSession: true
 				});
 			}
 			const appDataDirPath = await appDataDir();
@@ -97,32 +86,31 @@ export const createSessionSlice: StateCreator<
 				}
 				const sessionJSON: Session = JSON.parse(sessionFile);
 				set({
-					backendTokens: sessionJSON,
-					loadedSession: true,
+					session: sessionJSON,
+					loadedSession: true
 				});
 			} else {
 				await saveAllData();
 				set({
-					loadedSession: true,
+					loadedSession: true
 				});
 			}
 		}
 	},
 	saveAllData: async () => {
-		const { saveSession, saveProject } = get();
+		const { saveSession } = get();
 		await saveSession();
-		await saveProject();
 	},
 	saveSession: async () => {
-		const { loadedSession, sessionUUID: uuid, backendTokens: session, createSession, project } = get();
+		const { loadedSession, sessionUUID: uuid, backendTokens: session, createSession } = get();
 		if (!!false && loadedSession) {
 			const { appDataDir, join } = await import("@tauri-apps/api/path");
-			const { invoke } = await import("@tauri-apps/api/tauri");
-			const { exists, BaseDirectory, createDir, writeTextFile } = await import("@tauri-apps/api/fs");
+			const { invoke } = await import("@tauri-apps/api");
+			const { exists, BaseDirectory, mkdir, writeTextFile } = await import("@tauri-apps/plugin-fs");
 			let sessionUUID = uuid;
 			if (sessionUUID === "") {
 				sessionUUID = await invoke("get_session_uuid", {}).then(async response =>
-					typeof response === "string" ? response : "",
+					typeof response === "string" ? response : ""
 				);
 				set({ sessionUUID });
 			}
@@ -130,30 +118,29 @@ export const createSessionSlice: StateCreator<
 			const sessionJsonPath = await join(appDataDirPath, "Sessions", sessionUUID, "session.json");
 			await exists(sessionJsonPath).then(async exists => {
 				if (!exists) {
-					await createDir(sessionJsonPath, {
-						dir: BaseDirectory.AppData,
-						recursive: true,
+					await mkdir(sessionJsonPath, {
+						baseDir: BaseDirectory.AppData,
+						recursive: true
 					});
 				}
 			});
 			if (session === undefined) {
-				set({ backendTokens: createSession() });
+				set({ session: createSession() });
 			}
-			const sessionJSON = JSON.stringify({ ...session, project }, null, 4);
+			const sessionJSON = JSON.stringify({ ...session }, null, 4);
 			await writeTextFile(sessionJsonPath, sessionJSON);
 		}
 	},
 	createSession: () => {
-		const { sessionUUID: uuid, currentProject } = get();
+		const { sessionUUID: uuid } = get();
 		return {
 			uuid,
-			changed: false,
-			current_project: currentProject,
+			changed: false
 		} as Session;
 	},
 	setOutputLogs: (outputLogs: OutputLog[]) => {
 		set({
-			outputLogs,
+			outputLogs
 		});
 	},
 	setFoundNewVersion: (foundNewVersion: boolean) => {
@@ -169,37 +156,15 @@ export const createSessionSlice: StateCreator<
 		redirect(to);
 	},
 	resetSession: (redirectToHome?: boolean) => {
-		const { redirectTo, project, defaultPartnerArt, defaultPartnerArtEnabled } = get();
-		if (project !== null && project.skinPack !== null) {
-			project.skinPack.skinList.forEach(skin => URL.revokeObjectURL(skin.url_blob_path));
-		}
+		const { redirectTo } = get();
+
 		set(state => ({
 			...state,
-			project: null,
-			currentProject: undefined,
-			packType: PackType.NONE,
-			steps: [0],
-			currentStep: 0,
-			sidebarSteps: {
-				title: ["packType"],
-				stepsPath: ["/project"],
-				color: "#FDFEFE",
-			},
 			checkNewVersion: false,
 			downloadNewVersion: false,
 			foundNewVersion: false,
 			newVersion: undefined,
-			skin: STEVE_SKIN,
-			options: {
-				model: "slim",
-				pixelRatio: "match-device",
-				background: "#17181C",
-			},
-			outputLogs: [],
-			viewer: null,
-			editingSkin: null,
-			defaultPartnerArt,
-			defaultPartnerArtEnabled,
+			outputLogs: []
 		}));
 		if (redirectToHome) {
 			redirectTo("/");
@@ -212,9 +177,9 @@ export const createSessionSlice: StateCreator<
 				...state.outputLogs,
 				{
 					type: "ERROR",
-					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" "),
-				},
-			],
+					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+				}
+			]
 		}));
 		error(message, objects);
 	},
@@ -225,9 +190,9 @@ export const createSessionSlice: StateCreator<
 				...state.outputLogs,
 				{
 					type,
-					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" "),
-				},
-			],
+					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+				}
+			]
 		}));
 	},
 	addInfo: (message: string, ...objects: any[]) => {
@@ -237,9 +202,9 @@ export const createSessionSlice: StateCreator<
 				...state.outputLogs,
 				{
 					type: "INFO",
-					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" "),
-				},
-			],
+					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+				}
+			]
 		}));
 		info(message, objects);
 	},
@@ -250,9 +215,9 @@ export const createSessionSlice: StateCreator<
 				...state.outputLogs,
 				{
 					type: "WARN",
-					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" "),
-				},
-			],
+					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+				}
+			]
 		}));
 		warn(message, objects);
 	},
@@ -263,9 +228,9 @@ export const createSessionSlice: StateCreator<
 				...state.outputLogs,
 				{
 					type: "DEBUG",
-					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" "),
-				},
-			],
+					message: message + objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+				}
+			]
 		}));
 		debug(message, objects);
 	},
@@ -277,7 +242,7 @@ export const createSessionSlice: StateCreator<
 		const responseTime = getTime(start, performance.now());
 		addLogByType(
 			type,
-			`${name} [END] ` + `${responseTime.minutes}m : ${responseTime.seconds}s : ${responseTime.milliseconds}ms`,
+			`${name} [END] ` + `${responseTime.minutes}m : ${responseTime.seconds}s : ${responseTime.milliseconds}ms`
 		);
 		return result;
 	},
@@ -301,5 +266,5 @@ export const createSessionSlice: StateCreator<
 				break;
 			}
 		}
-	},
+	}
 });

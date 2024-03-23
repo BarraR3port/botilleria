@@ -4,7 +4,7 @@ import type {
 	SignInFromType,
 	SignUpFromType,
 	UpdateBasicUserInfoFormType,
-	UpdateCriticalUserInfoFormType,
+	UpdateCriticalUserInfoFormType
 } from "@/schemas/authSchema";
 import type { Session } from "next-auth";
 import { signIn as signInNextAuth, signOut as signOutNextAuth } from "next-auth/react";
@@ -12,11 +12,8 @@ import type { StateCreator } from "zustand";
 import type { ApiSlice } from "../api/ApiSlice";
 import type { AuthApiSlice } from "../api/AuthApiSlice";
 import type { UserApiSlice } from "../api/UserApiSlice";
-import type { ProjectArtSlice } from "./ProjectArtSlice";
-import type { ProjectSlice } from "./ProjectSlice";
 import type { SessionSlice } from "./SessionSlice";
 import type { SettingsSlice } from "./SettingsSlice";
-import type { SkinSlice } from "./SkinSlice";
 
 export interface UserSlice {
 	backendTokens: BackendTokens | null;
@@ -41,15 +38,7 @@ export interface UserSlice {
 }
 
 export const createUserSlice: StateCreator<
-	SessionSlice &
-		UserSlice &
-		ProjectArtSlice &
-		SettingsSlice &
-		SkinSlice &
-		ProjectSlice &
-		ApiSlice &
-		UserApiSlice &
-		AuthApiSlice,
+	SessionSlice & UserSlice & SettingsSlice & ApiSlice & UserApiSlice & AuthApiSlice,
 	[],
 	[],
 	UserSlice
@@ -67,15 +56,15 @@ export const createUserSlice: StateCreator<
 			"credentials",
 			{
 				redirect: false,
-				...signInForm,
+				...signInForm
 			},
-			signInForm,
+			signInForm
 		);
 
 		if (!nextAuthResponse) {
 			toast({
 				title: "Error",
-				description: "An error occurred while signing in. Please try again.",
+				description: "An error occurred while signing in. Please try again."
 			});
 			return false;
 		}
@@ -86,7 +75,7 @@ export const createUserSlice: StateCreator<
 			}
 			toast({
 				title: nextAuthResponse.error,
-				variant: "destructive",
+				variant: "destructive"
 			});
 			return false;
 		}
@@ -102,7 +91,7 @@ export const createUserSlice: StateCreator<
 		if (!userResponse) {
 			toast({
 				title: "Error",
-				description: "An error occurred while signing up. Please try again.",
+				description: "An error occurred while signing up. Please try again."
 			});
 			return false;
 		}
@@ -110,7 +99,7 @@ export const createUserSlice: StateCreator<
 			userResponse.errors.forEach(error => {
 				toast({
 					title: error.message,
-					variant: "destructive",
+					variant: "destructive"
 				});
 			});
 			return false;
@@ -123,7 +112,7 @@ export const createUserSlice: StateCreator<
 		if (!userResponse) {
 			toast({
 				title: "Error",
-				description: "An error occurred while verifying your email. Please try again.",
+				description: "An error occurred while verifying your email. Please try again."
 			});
 			return false;
 		}
@@ -131,7 +120,7 @@ export const createUserSlice: StateCreator<
 			userResponse.errors.forEach(error => {
 				toast({
 					title: error.message,
-					variant: "destructive",
+					variant: "destructive"
 				});
 			});
 			return false;
@@ -140,13 +129,13 @@ export const createUserSlice: StateCreator<
 		const nextAuthResponse = await signInNextAuth("credentials", {
 			redirect: false,
 			email,
-			password,
+			password
 		});
 
 		if (!nextAuthResponse) {
 			toast({
 				title: "Error",
-				description: "An error occurred while signing in. Please try again.",
+				description: "An error occurred while signing in. Please try again."
 			});
 			return false;
 		}
@@ -154,7 +143,7 @@ export const createUserSlice: StateCreator<
 		if ("error" in nextAuthResponse && nextAuthResponse.error) {
 			toast({
 				title: nextAuthResponse.error,
-				variant: "destructive",
+				variant: "destructive"
 			});
 			return false;
 		}
@@ -167,7 +156,7 @@ export const createUserSlice: StateCreator<
 	signOut: async () => {
 		const { signOutUser } = get();
 		set({
-			signingOut: true,
+			signingOut: true
 		});
 		await signOutUser()
 			.then(() => {
@@ -176,7 +165,7 @@ export const createUserSlice: StateCreator<
 					requestForceRefreshHook: false,
 					notifications: [],
 					signedIn: false,
-					backendTokens: null,
+					backendTokens: null
 				});
 			})
 			.finally(async () => {
@@ -201,13 +190,13 @@ export const createUserSlice: StateCreator<
 		const nextAuthResponse = await signInNextAuth("credentials", {
 			redirect: false,
 			email: user.email,
-			password: updateUserForm.password,
+			password: updateUserForm.password
 		});
 
 		if (!nextAuthResponse) {
 			toast({
 				title: "Error",
-				description: "An error occurred while signing in. Please try again.",
+				description: "An error occurred while signing in. Please try again."
 			});
 			return false;
 		}
@@ -215,7 +204,7 @@ export const createUserSlice: StateCreator<
 		if ("error" in nextAuthResponse && nextAuthResponse.error) {
 			toast({
 				title: nextAuthResponse.error,
-				variant: "destructive",
+				variant: "destructive"
 			});
 			return false;
 		}
@@ -231,26 +220,26 @@ export const createUserSlice: StateCreator<
 			loggingIn: false,
 			requestForceRefreshHook: false,
 			notifications: [],
-			backendTokens: null,
+			backendTokens: null
 		});
 	},
 	clearBasicData: () => {},
 	addNotification: notification => {
 		const { notifications } = get();
 		set({
-			notifications: [...notifications, notification],
+			notifications: [...notifications, notification]
 		});
 	},
 	clearNotifications: () => {
 		set({
-			notifications: [],
+			notifications: []
 		});
 	},
 	setSession: session => {
 		set({
 			backendTokens: session.backendTokens,
 			user: session.user,
-			expiresIn: session.expires,
+			expiresIn: session.expires
 		});
-	},
+	}
 });

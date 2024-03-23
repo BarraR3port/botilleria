@@ -76,8 +76,8 @@ export function cleanUnusedPixels(image: HTMLImageElement, isSlim: boolean, is64
 			? ALEX_SKIN_MASK_X64
 			: ALEX_SKIN_MASK_X128
 		: is64
-		  ? STEVE_SKIN_MASK_X64
-		  : STEVE_SKIN_MASK_X128;
+			? STEVE_SKIN_MASK_X64
+			: STEVE_SKIN_MASK_X128;
 
 	const context = canvas.getContext("2d");
 	if (!context) throw new Error("Unable to get canvas context");
@@ -117,6 +117,6 @@ export const STEVE_SKIN: Skin = {
 	file_path: SteveSkin.src,
 	url_blob_path: SteveSkin.src,
 	price: "paid",
-	model: "default",
+	model: "default"
 };
 Object.freeze(STEVE_SKIN);

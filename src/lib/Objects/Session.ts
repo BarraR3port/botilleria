@@ -27,21 +27,21 @@ export const DEFAULT_SKIN_PACK: SkinPack = {
 		header: {
 			name: "pack.name",
 			uuid: "",
-			version: [1, 0, 0],
+			version: [1, 0, 0]
 		},
 		modules: [
 			{
 				type: "skin_pack",
 				uuid: "",
-				version: [1, 0, 0],
-			},
-		],
+				version: [1, 0, 0]
+			}
+		]
 	},
 	skinList: [],
 	skinsJSON: {
 		skins: [],
 		serialize_name: "",
-		localization_name: "",
+		localization_name: ""
 	},
 	skinResolution: null,
 	texts: [
@@ -49,9 +49,9 @@ export const DEFAULT_SKIN_PACK: SkinPack = {
 			packTextLanguage: "en_US.lang",
 			packName: "",
 			packDescription: "",
-			translations: [],
-		},
-	],
+			translations: []
+		}
+	]
 };
 
 export const DEFAULT_WORLD_PACK: WorldPack = {
@@ -63,8 +63,8 @@ export const DEFAULT_WORLD_PACK: WorldPack = {
 				packTextLanguage: "en_US.lang",
 				packName: "",
 				packDescription: "",
-				translations: [],
-			},
+				translations: []
+			}
 		],
 		manifest: {
 			format_version: 2,
@@ -74,20 +74,20 @@ export const DEFAULT_WORLD_PACK: WorldPack = {
 				version: [1, 0, 0],
 				uuid: "",
 				lock_template_options: true,
-				base_game_version: [],
+				base_game_version: []
 			},
 			modules: [
 				{
 					type: "world_template",
 					uuid: "",
-					version: [1, 0, 0],
-				},
+					version: [1, 0, 0]
+				}
 			],
 			metadata: {
-				authors: ["Packager by Waypoint"],
-			},
-		},
-	},
+				authors: ["Packager by Waypoint"]
+			}
+		}
+	}
 };
 
 export const DEFAULT_TEXTURE_PACK: PackSpecificProps = {
@@ -98,8 +98,8 @@ export const DEFAULT_TEXTURE_PACK: PackSpecificProps = {
 			packTextLanguage: "en_US.lang",
 			packName: "",
 			packDescription: "",
-			translations: [],
-		},
+			translations: []
+		}
 	],
 	manifest: {
 		format_version: 2,
@@ -108,17 +108,17 @@ export const DEFAULT_TEXTURE_PACK: PackSpecificProps = {
 			name: "pack.name",
 			uuid: "",
 			version: [1, 0, 0],
-			min_engine_version: [],
+			min_engine_version: []
 		},
 		modules: [
 			{
 				type: "resources",
 				uuid: "",
-				version: [1, 0, 0],
-			},
+				version: [1, 0, 0]
+			}
 		],
-		dependencies: [],
-	},
+		dependencies: []
+	}
 };
 
 Object.freeze(DEFAULT_SKIN_PACK);

@@ -49,8 +49,8 @@ export const createAuthApiSlice: StateCreator<
 		return await api
 			.post("/auth/signOut", null, {
 				headers: {
-					Authorization: `Bearer ${backendTokens.accessToken}`,
-				},
+					Authorization: `Bearer ${backendTokens.accessToken}`
+				}
 			})
 			.then(handleAxiosResponse);
 	},
@@ -62,8 +62,8 @@ export const createAuthApiSlice: StateCreator<
 		return await api
 			.post("/auth/refresh-token", null, {
 				headers: {
-					Authorization: `Bearer ${backendTokens.refreshToken}`,
-				},
+					Authorization: `Bearer ${backendTokens.refreshToken}`
+				}
 			})
 			.then(response => {
 				if (response?.status === 201) {
@@ -81,8 +81,8 @@ export const createAuthApiSlice: StateCreator<
 		return await api
 			.post("/auth/verify-email", {
 				token,
-				email,
+				email
 			})
 			.then(handleAxiosResponse);
-	},
+	}
 });

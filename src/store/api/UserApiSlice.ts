@@ -12,7 +12,7 @@ import type { AuthApiSlice } from "./AuthApiSlice";
 export interface UserApiSlice {
 	checkUsername: (username: string) => Promise<boolean>;
 	updateCriticalUserInfoToApi: (
-		user: UpdateCriticalUserInfoFormType,
+		user: UpdateCriticalUserInfoFormType
 	) => Promise<UpdateCriticalUserInfoFormType | undefined>;
 	updateBasicUserInfoToApi: (user: UpdateBasicUserInfoFormType) => Promise<UpdateBasicUserInfoFormType | undefined>;
 }
@@ -37,35 +37,35 @@ export const createUserApiSlice: StateCreator<
 		return api
 			.get(`/user/check-username/${username}`, {
 				headers: {
-					Authorization: `Bearer ${backendTokens.accessToken}`,
-				},
+					Authorization: `Bearer ${backendTokens.accessToken}`
+				}
 			})
 			.then(handleAxiosResponse);
 	},
 	updateCriticalUserInfoToApi: async (
-		user: UpdateCriticalUserInfoFormType,
+		user: UpdateCriticalUserInfoFormType
 	): Promise<UpdateCriticalUserInfoFormType | undefined> => {
 		const { api, handleAxiosResponse, backendTokens } = get();
 		if (!backendTokens || !user) return undefined;
 		return api
 			.post("/user/update", user, {
 				headers: {
-					Authorization: `Bearer ${backendTokens.accessToken}`,
-				},
+					Authorization: `Bearer ${backendTokens.accessToken}`
+				}
 			})
 			.then(handleAxiosResponse);
 	},
 	updateBasicUserInfoToApi: async (
-		user: UpdateBasicUserInfoFormType,
+		user: UpdateBasicUserInfoFormType
 	): Promise<UpdateBasicUserInfoFormType | undefined> => {
 		const { api, handleAxiosResponse, backendTokens } = get();
 		if (!backendTokens || !user) return undefined;
 		return api
 			.post("/user/update", user, {
 				headers: {
-					Authorization: `Bearer ${backendTokens.accessToken}`,
-				},
+					Authorization: `Bearer ${backendTokens.accessToken}`
+				}
 			})
 			.then(handleAxiosResponse);
-	},
+	}
 });

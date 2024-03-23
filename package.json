@@ -73,6 +73,7 @@
 		"tailwind-scrollbar": "^3.0.4",
 		"tailwindcss-animate": "^1.0.6",
 		"tauri-controls": "^0.1.0",
+		"yup": "^1.4.0",
 		"zod": "^3.21.4",
 		"zustand": "^4.5.2"
 	},
@@ -80,7 +81,7 @@
 		"@biomejs/biome": "^1.6.2",
 		"@ianvs/prettier-plugin-sort-imports": "^4.1.0",
 		"@tauri-apps/cli": "2.0.0-beta.11",
-		"@types/node": "^20.4.6",
+		"@types/node": "20.4.6",
 		"@types/react": "^18.2.18",
 		"@types/react-dom": "^18.2.7",
 		"autoprefixer": "^10.4.14",
