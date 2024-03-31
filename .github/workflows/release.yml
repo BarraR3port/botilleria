@@ -12,7 +12,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   create-release:
-    if: github.actor == 'semantic-release-bot'
+    if: github.event_name == 'workflow_dispatch' || github.actor == 'semantic-release-bot'
     permissions:
       contents: write
     runs-on: ubuntu-20.04
