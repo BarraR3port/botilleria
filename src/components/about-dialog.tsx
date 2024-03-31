@@ -17,7 +17,7 @@ export function AboutDialog() {
 	const [arc, setArc] = useState("");
 
 	const getInfos = useCallback(async () => {
-		const { getName, getTauriVersion, getVersion } = await import("@tauri-apps/plugin-app");
+		const { getName, getTauriVersion, getVersion } = await import("@tauri-apps/api/app");
 		const { arch } = await import("@tauri-apps/plugin-os");
 
 		getName && getName().then(x => setName(x));
@@ -51,7 +51,6 @@ export function AboutDialog() {
 							>
 								release notes
 							</span>
-							)
 						</span>
 					</span>
 				</DialogTitle>

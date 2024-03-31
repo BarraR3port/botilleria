@@ -31,15 +31,15 @@ import { Dialog, DialogTrigger } from "./ui/dialog";
 
 export function Menu() {
 	const closeWindow = useCallback(async () => {
-		const { appWindow } = await import("@tauri-apps/plugin-window");
-		appWindow.close();
+		const { getCurrent } = await import("@tauri-apps/api/window");
+		getCurrent().close();
 	}, []);
 
 	return (
 		<WindowTitlebar
-		// controlsOrder="left"
-		// className="pl-0"
-		// windowControlsProps={{ platform: "windows", justify: false }}
+			// controlsOrder="left"
+			className="pl-0"
+			//windowControlsProps={{ platform: "windows", justify: false }}
 		>
 			<Menubar className="pl-2 border-b border-none rounded-none lg:pl-3">
 				<MenubarMenu>

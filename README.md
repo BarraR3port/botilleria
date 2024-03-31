@@ -11,12 +11,12 @@ Tauri UI Template is a starting point for building modern desktop applications w
 Use [create-tauri-ui](https://github.com/agmmnn/create-tauri-ui) to quickly scaffold a Tauri UI project.
 
 ```bash
-pnpm create tauri-ui
+bun create tauri-ui
 ```
 
 ![](https://i.imgur.com/ONV0z45.png)
 
-<details> 
+<details>
 <summary>
 Or clone the repository
 </summary>
@@ -25,9 +25,9 @@ Or clone the repository
 gh repo clone agmmnn/tauri-ui
 cd tauri-ui
 
-pnpm i
-pnpm tauri dev
-pnpm tauri build
+bun i
+bun tauri dev
+bun tauri build
 ```
 
 </details>
@@ -53,7 +53,7 @@ The template can be customized by editing the following files:
 - [src-tauri/tauri.conf.json](src-tauri/tauri.conf.json)
 - [package.json](/package.json)
 - [src-tauri/cargo.toml](src-tauri/Cargo.toml)
-- To change the app icon, update `app-icon.png`, and then run `pnpm tauri icon`. This will automatically generate icon files into _src-tauri/icons_.
+- To change the app icon, update `app-icon.png`, and then run `bun tauri icon`. This will automatically generate icon files into _src-tauri/icons_.
 
 ## Update Components
 

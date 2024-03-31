@@ -1,10 +1,7 @@
 import axios, { type AxiosInstance } from "axios";
 import type { StateCreator } from "zustand";
-import type { ProjectArtSlice } from "../app/ProjectArtSlice";
-import type { ProjectSlice } from "../app/ProjectSlice";
 import type { SessionSlice } from "../app/SessionSlice";
 import type { SettingsSlice } from "../app/SettingsSlice";
-import type { SkinSlice } from "../app/SkinSlice";
 import type { UserSlice } from "../app/UserSlice";
 import type { AuthApiSlice } from "./AuthApiSlice";
 import type { UserApiSlice } from "./UserApiSlice";
@@ -38,15 +35,7 @@ export interface ApiSlice {
 }
 
 export const createApiSlice: StateCreator<
-	SessionSlice &
-		UserSlice &
-		ProjectArtSlice &
-		SettingsSlice &
-		SkinSlice &
-		ProjectSlice &
-		ApiSlice &
-		UserApiSlice &
-		AuthApiSlice,
+	SessionSlice & UserSlice & SettingsSlice & ApiSlice & UserApiSlice & AuthApiSlice,
 	[],
 	[],
 	ApiSlice
