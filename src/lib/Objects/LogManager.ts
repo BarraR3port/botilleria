@@ -1,10 +1,10 @@
-import { isTauriApp } from "../Language/redirect";
+import { isTauriApp } from "../utils";
 
 export async function debug(message: string, ...objects: any[]): Promise<void> {
 	//const appStore = useAppStore();
 	//if (!appStore.debug) return;
-	if (false) {
-		const { attachConsole, debug } = await import("tauri-plugin-log-api");
+	if (isTauriApp()) {
+		const { attachConsole, debug } = await import("@tauri-apps/plugin-log");
 		const detach = await attachConsole();
 		const finalMessage =
 			message +
@@ -19,8 +19,8 @@ export async function debug(message: string, ...objects: any[]): Promise<void> {
 }
 
 export async function info(message: string, ...objects: any[]): Promise<void> {
-	if (false) {
-		const { attachConsole, info } = await import("tauri-plugin-log-api");
+	if (isTauriApp()) {
+		const { attachConsole, info } = await import("@tauri-apps/plugin-log");
 		const detach = await attachConsole();
 		const finalMessage =
 			message +
@@ -35,8 +35,8 @@ export async function info(message: string, ...objects: any[]): Promise<void> {
 }
 
 export async function warn(message: string, ...objects: any[]): Promise<void> {
-	if (false) {
-		const { attachConsole, warn } = await import("tauri-plugin-log-api");
+	if (isTauriApp()) {
+		const { attachConsole, warn } = await import("@tauri-apps/plugin-log");
 		const detach = await attachConsole();
 		const finalMessage =
 			message +
@@ -51,8 +51,8 @@ export async function warn(message: string, ...objects: any[]): Promise<void> {
 }
 
 export async function error(message: string, ...objects: any[]): Promise<void> {
-	if (false) {
-		const { attachConsole, error } = await import("tauri-plugin-log-api");
+	if (isTauriApp()) {
+		const { attachConsole, error } = await import("@tauri-apps/plugin-log");
 		const detach = await attachConsole();
 		const finalMessage =
 			message +

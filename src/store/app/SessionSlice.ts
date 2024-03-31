@@ -1,9 +1,7 @@
 import { redirect } from "next/navigation";
 import type { StateCreator } from "zustand";
 import { debug, error, getTime, info, warn } from "../../lib/Objects/LogManager";
-import { PackType, type Project } from "../../lib/Objects/Project";
 import type { CurrentProject, Session } from "../../lib/Objects/Session";
-import { STEVE_SKIN } from "../../lib/Objects/Skin";
 import type { ApiSlice } from "../api/ApiSlice";
 import type { AuthApiSlice } from "../api/AuthApiSlice";
 import type { UserApiSlice } from "../api/UserApiSlice";
@@ -26,7 +24,7 @@ export type SessionSlice = {
 	session: Session | null;
 	outputLogs: OutputLog[];
 	loadSession: () => Promise<void>;
-	saveAllData: (project?: Project) => Promise<void>;
+	saveAllData: () => Promise<void>;
 	saveSession: () => Promise<void>;
 	createSession: () => Session;
 	setOutputLogs: (outputLogs: OutputLog[]) => void;
@@ -55,7 +53,6 @@ export const createSessionSlice: StateCreator<
 	sessionUUID: "",
 	currentProject: undefined as CurrentProject | undefined,
 	session: null,
-	packType: PackType.NONE,
 	checkNewVersion: false,
 	downloadNewVersion: false,
 	foundNewVersion: false,
@@ -64,7 +61,7 @@ export const createSessionSlice: StateCreator<
 		const { sessionUUID: uuid, saveAllData, loadedSession } = get();
 
 		if (!!false && !loadedSession) {
-			const { invoke } = await import("@tauri-apps/api");
+			const { invoke } = await import("@tauri-apps/api/core");
 			const { appDataDir, join } = await import("@tauri-apps/api/path");
 			const { exists, readTextFile } = await import("@tauri-apps/plugin-fs");
 			let sessionUUID = uuid;
@@ -105,7 +102,7 @@ export const createSessionSlice: StateCreator<
 		const { loadedSession, sessionUUID: uuid, backendTokens: session, createSession } = get();
 		if (!!false && loadedSession) {
 			const { appDataDir, join } = await import("@tauri-apps/api/path");
-			const { invoke } = await import("@tauri-apps/api");
+			const { invoke } = await import("@tauri-apps/api/core");
 			const { exists, BaseDirectory, mkdir, writeTextFile } = await import("@tauri-apps/plugin-fs");
 			let sessionUUID = uuid;
 			if (sessionUUID === "") {

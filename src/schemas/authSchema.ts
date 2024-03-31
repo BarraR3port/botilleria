@@ -6,7 +6,7 @@ export const SignInFormSchema = object({
 		.required("auth.errors.password.required")
 		.min(6, "auth.errors.password.minLength")
 		.max(50, "auth.errors.password.maxLength")
-		.trim(),
+		.trim()
 });
 
 export type SignInFromType = InferType<typeof SignInFormSchema>;
@@ -38,7 +38,7 @@ export const SignUpFormSchema = object({
 		.min(2, "auth.errors.company.minLength")
 		.max(50, "auth.errors.company.maxLength")
 		.trim(),
-	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid"),
+	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid")
 });
 
 export type SignUpFromType = InferType<typeof SignUpFormSchema>;
@@ -54,7 +54,7 @@ export const UpdateBasicUserInfoFormSchema = object({
 		.min(2, "auth.errors.lastName.minLength")
 		.max(50, "auth.errors.lastName.maxLength")
 		.trim(),
-	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid"),
+	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid")
 });
 
 export type UpdateBasicUserInfoFormType = InferType<typeof UpdateBasicUserInfoFormSchema>;
@@ -74,7 +74,7 @@ export const UpdateCriticalUserInfoFormSchema = object({
 		.required("auth.errors.password.required")
 		.min(6, "auth.errors.password.minLength")
 		.max(50, "auth.errors.password.maxLength")
-		.trim(),
+		.trim()
 });
 
 export type UpdateCriticalUserInfoFormType = InferType<typeof UpdateCriticalUserInfoFormSchema>;
@@ -83,7 +83,7 @@ export const VerifyUserEmailSchema = object({
 	token: string()
 		.min(1, "auth.errors.email.verification.minCharacters")
 		.max(6, "auth.errors.email.verification.maxCharacters")
-		.trim(),
+		.trim()
 });
 
 export type VerifyUserEmailType = InferType<typeof VerifyUserEmailSchema>;

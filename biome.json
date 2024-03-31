@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.6.2/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.6.3/schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
@@ -29,7 +29,8 @@
 			"suspicious": {
 				"noExplicitAny": "off",
 				"noConfusingVoidType": "off",
-				"noAsyncPromiseExecutor": "off"
+				"noAsyncPromiseExecutor": "off",
+				"noArrayIndexKey": "off"
 			},
 			"complexity": {
 				"noForEach": "off",
@@ -39,11 +40,12 @@
 				"noParameterAssign": "off"
 			},
 			"a11y": {
-				"useKeyWithClickEvents": "off"
+				"useKeyWithClickEvents": "off",
+				"noSvgWithoutTitle": "off"
 			}
 		}
 	},
 	"files": {
-		"ignore": ["node_modules/**", "build/**", "out/**", ".next/**", "coverage/**"]
+		"ignore": ["node_modules/**", "build/**", "out/**", ".next/**", "coverage/**", "dist/**"]
 	}
 }

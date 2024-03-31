@@ -1,11 +1,8 @@
 import type { UserResponse } from "@/lib/Objects/User";
 import type { SignInFromType, SignUpFromType } from "@/schemas/authSchema";
 import type { StateCreator } from "zustand";
-import type { ProjectArtSlice } from "../app/ProjectArtSlice";
-import type { ProjectSlice } from "../app/ProjectSlice";
 import type { SessionSlice } from "../app/SessionSlice";
 import type { SettingsSlice } from "../app/SettingsSlice";
-import type { SkinSlice } from "../app/SkinSlice";
 import type { UserSlice } from "../app/UserSlice";
 import type { ApiSlice } from "./ApiSlice";
 import type { UserApiSlice } from "./UserApiSlice";
@@ -20,15 +17,7 @@ export interface AuthApiSlice {
 }
 
 export const createAuthApiSlice: StateCreator<
-	SessionSlice &
-		UserSlice &
-		ProjectArtSlice &
-		SettingsSlice &
-		SkinSlice &
-		ProjectSlice &
-		ApiSlice &
-		UserApiSlice &
-		AuthApiSlice,
+	SessionSlice & UserSlice & SettingsSlice & ApiSlice & UserApiSlice & AuthApiSlice,
 	[],
 	[],
 	AuthApiSlice

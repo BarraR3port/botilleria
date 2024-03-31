@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
 
-const config = {
+const _config = {
 	providers: []
 } satisfies NextAuthConfig;

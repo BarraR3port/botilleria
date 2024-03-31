@@ -4,5 +4,5 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
-
-export const isTauriApp = () => typeof window !== "undefined" && typeof window.__TAURI_IPC__ !== "undefined";
+//@ts-ignore
+export const isTauriApp = () => !!window.__TAURI_INTERNAL__;

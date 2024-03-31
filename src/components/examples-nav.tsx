@@ -43,7 +43,7 @@ const examples = [
 
 interface ExamplesNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function ExamplesNav({ className, ...props }: ExamplesNavProps) {
+export function ExamplesNav({ className, ..._props }: ExamplesNavProps) {
 	const pathname = usePathname() === "/" ? "/examples/music" : usePathname();
 
 	return (
