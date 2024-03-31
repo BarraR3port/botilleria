@@ -46,6 +46,6 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules/**", "build/**", "out/**", ".next/**", "coverage/**", "dist/**"]
+		"ignore": ["node_modules/**", "build/**", "out/**", ".next/**", "coverage/**", "dist/**", "src-tauri/target/**"]
 	}
 }
