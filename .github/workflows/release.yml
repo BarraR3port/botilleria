@@ -85,8 +85,14 @@ jobs:
 
       - name: Install bun in Windows
         if: matrix.platform == 'windows-latest'
-        run: iwr bun.sh/install.ps1 | iex
+        run: |
+            iwr https://bun.sh/install.ps1 | iex
+            echo "C:\Users\runneradmin\.bun\bin" >> $env:GITHUB_PATH
 
+      - name: Verify Bun Installation
+        if: matrix.platform == 'windows-latest'
+        run: bun --version
+        
       - name: Install bun in other platforms
         if: matrix.platform != 'windows-latest' 
         run: npm install -g bun
