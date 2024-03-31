@@ -72,7 +72,7 @@ jobs:
           workspaces: v2 -> v2/target
 
       - name: Install Bun
-        uses: oven-sh/setup-bun@v1
+        uses: jcbhmr/configure-bun-action@v1.0.0
 
       - name: Install apt dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
