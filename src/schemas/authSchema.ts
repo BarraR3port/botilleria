@@ -1,89 +1,44 @@
 import { type InferType, object, string } from "yup";
 
 export const SignInFormSchema = object({
-	email: string().required("auth.errors.email.required").email("auth.errors.email.invalid").trim(),
+	email: string().required("Email requerido").email("Email inválido").trim(),
 	password: string()
-		.required("auth.errors.password.required")
-		.min(6, "auth.errors.password.minLength")
-		.max(50, "auth.errors.password.maxLength")
+		.required("Contraseña requerida")
+		.min(6, "La contraseña tiene que tener al menos 6 caracteres")
+		.max(50, "La contraseña tiene que tener menos de 50 caracteres")
 		.trim()
 });
 
 export type SignInFromType = InferType<typeof SignInFormSchema>;
 
-export const SignUpFormSchema = object({
-	email: string().required("auth.errors.email.required").email("auth.errors.email.invalid").trim(),
-	password: string()
-		.required("auth.errors.password.required")
-		.min(6, "auth.errors.password.minLength")
-		.max(50, "auth.errors.password.maxLength")
-		.trim(),
-	confirmPassword: string()
-		.required("auth.errors.password.required")
-		.min(6, "auth.errors.password.minLength")
-		.max(50, "auth.errors.password.maxLength")
-		.trim(),
-	firstName: string()
-		.required("auth.errors.firstName.required")
-		.min(2, "auth.errors.firstName.minLength")
-		.max(50, "auth.errors.firstName.maxLength")
-		.trim(),
-	lastName: string()
-		.optional()
-		.min(2, "auth.errors.lastName.minLength")
-		.max(50, "auth.errors.lastName.maxLength")
-		.trim(),
-	company: string()
-		.optional()
-		.min(2, "auth.errors.company.minLength")
-		.max(50, "auth.errors.company.maxLength")
-		.trim(),
-	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid")
+export const RecoverFormSchema = object({
+	email: string().required("Email requerido").email("Email inválido").trim()
 });
 
-export type SignUpFromType = InferType<typeof SignUpFormSchema>;
+export type RecoverFromType = InferType<typeof RecoverFormSchema>;
 
-export const UpdateBasicUserInfoFormSchema = object({
-	firstName: string()
-		.required("auth.errors.firstName.required")
-		.min(2, "auth.errors.firstName.minLength")
-		.max(50, "auth.errors.firstName.maxLength")
-		.trim(),
-	lastName: string()
-		.optional()
-		.min(2, "auth.errors.lastName.minLength")
-		.max(50, "auth.errors.lastName.maxLength")
-		.trim(),
-	lang: string().required("auth.errors.lang.required").oneOf(["en", "es"], "auth.errors.lang.invalid")
-});
-
-export type UpdateBasicUserInfoFormType = InferType<typeof UpdateBasicUserInfoFormSchema>;
-
-export const UpdateCriticalUserInfoFormSchema = object({
-	company: string()
-		.optional()
-		.min(2, "auth.errors.company.minLength")
-		.max(50, "auth.errors.company.maxLength")
-		.trim(),
+export const ResetFormSchema = object({
+	email: string().required("Email requerido").email("Email inválido").trim(),
 	password: string()
-		.required("auth.errors.password.required")
-		.min(6, "auth.errors.password.minLength")
-		.max(50, "auth.errors.password.maxLength")
+		.required("Contraseña requerida")
+		.min(6, "La contraseña tiene que tener al menos 6 caracteres")
+		.max(50, "La contraseña tiene que tener menos de 50 caracteres")
 		.trim(),
 	confirmPassword: string()
-		.required("auth.errors.password.required")
-		.min(6, "auth.errors.password.minLength")
-		.max(50, "auth.errors.password.maxLength")
+		.required("Contraseña requerida")
+		.min(6, "La contraseña tiene que tener al menos 6 caracteres")
+		.max(50, "La contraseña tiene que tener menos de 50 caracteres")
 		.trim()
 });
 
-export type UpdateCriticalUserInfoFormType = InferType<typeof UpdateCriticalUserInfoFormSchema>;
+export type ResetFromType = InferType<typeof ResetFormSchema>;
 
-export const VerifyUserEmailSchema = object({
+export const EmailOtpSchema = object({
 	token: string()
-		.min(1, "auth.errors.email.verification.minCharacters")
-		.max(6, "auth.errors.email.verification.maxCharacters")
+		.required("El código de verificación es requerido")
+		.min(1, "El código de verificación debe tener 6 caracteres")
+		.max(6, "El código de verificación debe tener 6 caracteres")
 		.trim()
 });
 
-export type VerifyUserEmailType = InferType<typeof VerifyUserEmailSchema>;
+export type EmailOtpType = InferType<typeof EmailOtpSchema>;
