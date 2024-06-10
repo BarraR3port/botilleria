@@ -10,14 +10,15 @@ on:
       - "**"
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
-  create-release:
+  create-or-find-release:
     if: github.event_name == 'workflow_dispatch' || github.actor == 'semantic-release-bot'
     permissions:
       contents: write
     runs-on: ubuntu-20.04
     outputs:
-      release_id: ${{ steps.create-release.outputs.result }}
+      release_id: ${{ steps.set-release-id.outputs.release_id }}
 
     steps:
       - name: Checkout repository
@@ -31,24 +32,33 @@ jobs:
       - name: Get version
         run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
-      - name: Create release
-        id: create-release
+      - name: Find or create release
+        id: set-release-id
         uses: actions/github-script@v6
         with:
           script: |
-            const { data } = await github.rest.repos.createRelease({
+            const version = `v${process.env.PACKAGE_VERSION}`;
+            const { data: releases } = await github.rest.repos.listReleases({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_name: `v${process.env.PACKAGE_VERSION}`,
-              name: `v${process.env.PACKAGE_VERSION}`,
-              body: '*This release was generated automatically using GitHub Actions.*',
-              draft: true,
-              prerelease: false
-            })
-            return data.id
+            });
+            let release = releases.find(r => r.tag_name === version);
+            if (!release) {
+              const { data } = await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: version,
+                name: version,
+                body: '*This release was generated automatically using GitHub Actions.*',
+                draft: true,
+                prerelease: false
+              });
+              release = data;
+            }
+            return { release_id: release.id };
 
   build-tauri:
-    needs: create-release
+    needs: create-or-find-release
     permissions:
       contents: write
     strategy:
@@ -105,20 +115,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          releaseId: ${{ needs.create-release.outputs.release_id }}
+          releaseId: ${{ needs.create-or-find-release.outputs.release_id }}
 
   publish-release:
     permissions:
       contents: write
     runs-on: ubuntu-20.04
-    needs: [create-release, build-tauri]
+    needs: [create-or-find-release, build-tauri]
 
     steps:
       - name: Publish release
         id: publish-release
         uses: actions/github-script@v6
         env:
-          release_id: ${{ needs.create-release.outputs.release_id }}
+          release_id: ${{ needs.create-or-find-release.outputs.release_id }}
         with:
           script: |
             github.rest.repos.updateRelease({
