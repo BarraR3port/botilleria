@@ -3,9 +3,9 @@
 import type React from "react";
 import { createContext, useContext, useEffect } from "react";
 
+import Loading from "@/components/store/loading";
 import { useAppStore } from "@/store/AppStore";
 import { useRouter } from "next/navigation";
-import Loading from "@/components/store/loading";
 
 const SessionContext = createContext({});
 

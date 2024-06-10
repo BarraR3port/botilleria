@@ -1,6 +1,7 @@
 "use client";
 
 import { catchAxiosResponse, handleAxiosResponse } from "@/api/utils";
+import { Input } from "@/components/ui/input";
 import { getType, priceFormatter } from "@/lib/utils";
 import type { Product, ProductType } from "@/objects/panel";
 import { useAppStore } from "@/store/AppStore";
@@ -9,7 +10,6 @@ import { debounce } from "lodash";
 import { Beer, Search, Utensils } from "lucide-react";
 import { useState } from "react";
 import { UserIcon } from "../user-icon";
-import { Input } from "@/components/ui/input";
 
 export default function SearchProducts() {
 	const [products, setProducts] = useState<Product[]>([]);

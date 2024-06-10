@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { type ProductSlice, createProductSlice } from "./app/ProductSlice";
 import { type SessionSlice, createSessionSlice } from "./app/SessionSlice";
 import { type SettingsSlice, createSettingsSlice } from "./app/SettingsSlice";
-import { type ProductSlice, createProductSlice } from "./app/ProductSlice";
 
 export const useAppStore = create<SessionSlice & SettingsSlice & ProductSlice>()(
 	persist(

@@ -11,9 +11,9 @@ import type { ApiResponse, UserAuthError } from "@/objects";
 import { RecoverFormSchema, type RecoverFromType } from "@/schemas/authSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "../../components/ui/use-toast";
-import { useRouter } from "next/navigation";
 
 export function RecoverForm() {
 	const [loading, setLoading] = useState(false);
