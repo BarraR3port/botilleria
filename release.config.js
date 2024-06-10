@@ -62,7 +62,7 @@ module.exports = {
 		[
 			"@semantic-release/git",
 			{
-				assets: ["src-tauri/Cargo.toml", "package.json", "yarn.lock", "CHANGELOG.md"],
+				assets: ["src-tauri/Cargo.toml", "package.json", "CHANGELOG.md"],
 				message: "chore(release): ${nextRelease.version}"
 			}
 		],

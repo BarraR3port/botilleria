@@ -12,7 +12,8 @@
     "format": "biome format --write .",
     "taze": "taze major -I",
     "taze:minor": "taze minor -w",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "release": "semantic-release"
   },
   "dependencies": {
     "@auth/core": "0.28.0",
@@ -107,5 +108,7 @@
     "taze": "0.11.2",
     "typescript": "5.1.6"
   },
-  "trustedDependencies": ["@biomejs/biome"]
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }
