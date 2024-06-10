@@ -1,11 +1,8 @@
-import { isTauriApp } from "@/lib/utils";
+import { isTauriApp } from "@/lib/tauri";
 import { debounce } from "lodash";
 import type { StateCreator } from "zustand";
-import type { ApiSlice } from "../api/ApiSlice";
-import type { AuthApiSlice } from "../api/AuthApiSlice";
-import type { UserApiSlice } from "../api/UserApiSlice";
+import type { ProductSlice } from "./ProductSlice";
 import type { SessionSlice } from "./SessionSlice";
-import type { UserSlice } from "./UserSlice";
 
 export interface SettingsSlice {
 	debug: boolean;
@@ -16,12 +13,10 @@ export interface SettingsSlice {
 	changeDebug: (value: boolean) => Promise<void>;
 }
 
-export const createSettingsSlice: StateCreator<
-	SessionSlice & UserSlice & SettingsSlice & ApiSlice & UserApiSlice & AuthApiSlice,
-	[],
-	[],
-	SettingsSlice
-> = (set, get) => ({
+export const createSettingsSlice: StateCreator<SessionSlice & SettingsSlice & ProductSlice, [], [], SettingsSlice> = (
+	set,
+	get
+) => ({
 	debug: false,
 	loaded: false,
 	loadedSettings: false,

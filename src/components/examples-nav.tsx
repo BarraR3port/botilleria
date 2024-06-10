@@ -16,28 +16,16 @@ const examples = [
 		href: "/examples/dashboard"
 	},
 	{
-		name: "Cards",
-		href: "/examples/cards"
+		name: "Iniciar Sesión",
+		href: "/signIn"
 	},
 	{
-		name: "Tasks",
-		href: "/examples/tasks"
+		name: "Recuperar Contraseña",
+		href: "/recover"
 	},
 	{
-		name: "Playground",
-		href: "/examples/playground"
-	},
-	{
-		name: "Forms",
-		href: "/examples/forms"
-	},
-	{
-		name: "Music",
-		href: "/examples/music"
-	},
-	{
-		name: "Authentication",
-		href: "/examples/authentication"
+		name: "Ventas",
+		href: "/sale"
 	}
 ];
 

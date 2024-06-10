@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,23 +12,32 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { useAppStore } from "@/store/AppStore";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 export function UserNav() {
+	const router = useRouter();
+	const { logOut, session } = useAppStore();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
-					<Avatar className="h-8 w-8">
+				<Button variant="ghost" className="relative w-8 h-8 rounded-full">
+					<Avatar className="w-8 h-8">
 						<AvatarImage src="/avatars/01.png" alt="@shadcn" />
-						<AvatarFallback>SC</AvatarFallback>
+						<AvatarFallback>
+							{session?.user.name.at(0)?.toUpperCase()} {session?.user.lastName.at(0)?.toUpperCase()}
+						</AvatarFallback>
 					</Avatar>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="end" forceMount>
 				<DropdownMenuLabel className="font-normal">
 					<div className="flex flex-col space-y-1">
-						<p className="text-sm font-medium leading-none">shadcn</p>
-						<p className="text-xs leading-none text-muted-foreground">m@example.com</p>
+						<p className="text-sm font-medium leading-none">
+							{session?.user.name} {session?.user.lastName}
+						</p>
+						<p className="text-xs leading-none text-muted-foreground">{session?.user.email}</p>
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
@@ -46,7 +57,12 @@ export function UserNav() {
 					<DropdownMenuItem>New Team</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={() => {
+						logOut();
+						router.push("/signIn");
+					}}
+				>
 					Log out
 					<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
 				</DropdownMenuItem>

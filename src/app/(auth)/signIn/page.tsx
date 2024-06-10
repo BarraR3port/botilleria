@@ -1,4 +1,3 @@
-"use client";
 import { SignInForm } from "@/forms/auth/SignInForm";
 
 export default function SignIn() {

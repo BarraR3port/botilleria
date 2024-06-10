@@ -8,7 +8,7 @@ export type BackendTokens = {
 	refreshToken: BackendToken;
 };
 
-export type UserAuthData = {
+export type UserSession = {
 	user: User;
 	backendTokens: BackendTokens;
 };
@@ -34,7 +34,7 @@ export type NextErrorResponse = {
 
 export type ApiResponse = UserErrorResponse | "" | undefined | true;
 
-export type AuthResponse = UserAuthData | ApiResponse;
+export type AuthResponse = UserSession | ApiResponse;
 
 export interface User {
 	id: string;
@@ -46,4 +46,13 @@ export interface User {
 	rol: "ADMIN" | "USER";
 	emailVerified: Date | null;
 	backendTokens: BackendTokens;
+}
+
+export interface Recovery {
+	id: string;
+	token: string;
+	status: "WAITING" | "USED" | "EXPIRED";
+	createdAt: Date;
+	updatedAt: Date;
+	email: string;
 }

@@ -6,20 +6,21 @@ import { catchAxiosResponse, handleAxiosResponse } from "@/api/utils";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { ApiResponse, AuthResponse } from "@/objects";
+import type { AuthResponse } from "@/objects";
 import { SignInFormSchema, type SignInFromType } from "@/schemas/authSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Separator } from "../../components/ui/separator";
-import { toast } from "../../components/ui/use-toast";
+import { useAppStore } from "@/store/AppStore";
+import { useRouter } from "next/navigation";
 
 export function SignInForm() {
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
+	const { updateSession } = useAppStore();
 
 	const form = useForm<SignInFromType>({
 		resolver: yupResolver(SignInFormSchema),
@@ -36,28 +37,15 @@ export function SignInForm() {
 		setLoading(true);
 
 		const response: AuthResponse = await axios
-			.post("/api/auth/signIn", {
+			.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signIn`, {
 				...data
 			})
 			.catch(res => catchAxiosResponse(res, form))
 			.then(res => handleAxiosResponse(res, form));
 
-		if (typeof response === "object" && "user" in response) {
-			const signInResponse = await signIn("credentials", {
-				redirect: false,
-				callbackUrl: "/panel",
-				userId: response.user.id,
-				token: response.backendTokens.accessToken.token
-			}).catch(error => {
-				console.log("|| Error", error);
-				return error;
-			});
-
-			if (signInResponse) {
-				if (signInResponse.ok && signInResponse.url) {
-					window.location.href = signInResponse.url;
-				}
-			}
+		if (typeof response === "object" && "user" in response && "backendTokens" in response) {
+			updateSession(response);
+			router.push("/sale");
 		}
 
 		setLoading(false);

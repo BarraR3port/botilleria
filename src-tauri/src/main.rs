@@ -4,6 +4,7 @@
     windows_subsystem = "windows"
 )]
 
+use tauri::Manager;
 use tauri_plugin_log::fern::colors::{Color, ColoredLevelConfig};
 use tauri_plugin_log::{RotationStrategy, TimezoneStrategy};
 use tauri_plugin_log::{Target, TargetKind};
@@ -46,6 +47,15 @@ fn main() {
                 .rotation_strategy(RotationStrategy::KeepAll)
                 .build(),
         )
+        .setup(|app| {
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = app.get_webview_window("main").unwrap();
+                window.open_devtools();
+                //window.close_devtools();
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![greet])
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_os::init())

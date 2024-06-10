@@ -13,10 +13,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "../../components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export function RecoverForm() {
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const router = useRouter();
 
 	const form = useForm<RecoverFromType>({
 		resolver: yupResolver(RecoverFormSchema),
@@ -29,7 +31,7 @@ export function RecoverForm() {
 	const onSubmit: SubmitHandler<RecoverFromType> = async data => {
 		setLoading(true);
 		const response = await axios
-			.post("/api/auth/recover", data)
+			.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/recover`, data)
 			.catch(res => catchAxiosResponse(res, form))
 			.then(res => handleAxiosResponse(res, form));
 
@@ -46,6 +48,7 @@ export function RecoverForm() {
 				open={open}
 				onConfirm={() => {
 					setOpen(false);
+					router.push("/signIn");
 				}}
 				loading={loading}
 			/>

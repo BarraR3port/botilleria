@@ -1,21 +1,17 @@
-import { isTauriApp } from "../utils";
+import { isTauriApp } from "../tauri";
 
 export async function debug(message: string, ...objects: any[]): Promise<void> {
 	//const appStore = useAppStore();
 	//if (!appStore.debug) return;
-	if (isTauriApp()) {
-		const { attachConsole, debug } = await import("@tauri-apps/plugin-log");
-		const detach = await attachConsole();
-		const finalMessage =
-			message +
-			(objects[0] === undefined || objects[0].length !== 0
-				? objects.map(object => JSON.stringify(object, null, 4)).join(" ")
-				: "");
-		await debug(finalMessage);
-		detach();
-	} else {
-		console.debug(message, ...objects);
-	}
+	const { attachConsole, debug } = await import("@tauri-apps/plugin-log");
+	const detach = await attachConsole();
+	const finalMessage =
+		message +
+		(objects[0] === undefined || objects[0].length !== 0
+			? objects.map(object => JSON.stringify(object, null, 4)).join(" ")
+			: "");
+	await debug(finalMessage);
+	detach();
 }
 
 export async function info(message: string, ...objects: any[]): Promise<void> {

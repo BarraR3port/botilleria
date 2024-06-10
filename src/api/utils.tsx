@@ -1,11 +1,10 @@
 import { toast } from "@/components/ui/use-toast";
 import type { ApiResponse, AuthResponse, UserErrorResponse } from "@/objects";
 
-export async function handleAxiosResponse(response: any, form?: any): Promise<ApiResponse> {
+export async function handleAxiosResponse<T>(response: any, form?: any): Promise<T | undefined> {
 	if (!response) {
 		return undefined;
 	}
-	console.log(" || NORMAL", response);
 
 	const error: UserErrorResponse = response.data;
 	if (typeof error === "object" && "errors" in error) {
@@ -23,8 +22,7 @@ export async function handleAxiosResponse(response: any, form?: any): Promise<Ap
 
 	if ("status" in response) {
 		if (response.status === 200 || response.status === 201 || response.status === 204 || response.status === 304) {
-			console.log(" || STATUS", response.status);
-			return response.data;
+			return response.data as T;
 		}
 	}
 
@@ -35,7 +33,7 @@ export async function handleAxiosResponse(response: any, form?: any): Promise<Ap
 			response.data.status === 204 ||
 			response.data.status === 304
 		) {
-			return response.data;
+			return response.data as T;
 		}
 	}
 
