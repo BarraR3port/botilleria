@@ -1,38 +1,32 @@
 "use client";
 
-import logo from "@/assets/logo.png";
-import { Beer, Globe, Mic, Sailboat } from "lucide-react";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { WindowControls, WindowTitlebar } from "tauri-controls";
+import { Beer, ExternalLink, Info, X } from "lucide-react";
+import { useCallback } from "react";
+import { WindowTitlebar } from "tauri-controls";
 
-import {
-	Menubar,
-	MenubarCheckboxItem,
-	MenubarContent,
-	MenubarItem,
-	MenubarLabel,
-	MenubarMenu,
-	MenubarRadioGroup,
-	MenubarRadioItem,
-	MenubarSeparator,
-	MenubarShortcut,
-	MenubarSub,
-	MenubarSubContent,
-	MenubarSubTrigger,
-	MenubarTrigger
-} from "@/components/ui/menubar";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 
 import { AboutDialog } from "./about-dialog";
-import { ExamplesNav } from "./examples-nav";
-import { MenuModeToggle } from "./menu-mode-toggle";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 
 export function Menu() {
 	const closeWindow = useCallback(async () => {
 		const { getCurrent } = await import("@tauri-apps/api/window");
-		getCurrent().close();
+		const { confirm } = await import("@tauri-apps/plugin-dialog");
+		await confirm("¿Estás seguro que quieres cerrar la app?", {
+			title: "Botillería",
+			okLabel: "cerrar",
+			cancelLabel: "cancelar"
+		}).then((ok: any) => {
+			if (ok) {
+				getCurrent().close();
+			}
+		});
+	}, []);
+
+	const openExternalLink = useCallback(async (url: string) => {
+		const { open } = await import("@tauri-apps/plugin-shell");
+		open(url);
 	}, []);
 
 	return (
@@ -49,22 +43,31 @@ export function Menu() {
 				</MenubarMenu>
 
 				<MenubarMenu>
-					<MenubarTrigger className="font-bold">App</MenubarTrigger>
+					<MenubarTrigger className="font-bold hover:cursor-pointer">Botillería</MenubarTrigger>
 					<Dialog modal={false}>
 						<MenubarContent>
 							<DialogTrigger asChild>
-								<MenubarItem>Sobre la app</MenubarItem>
+								<MenubarItem className="hover:cursor-pointer">
+									<Info className="w-4 h-4 mr-2" />
+									Sobre la app
+								</MenubarItem>
 							</DialogTrigger>
-							<MenubarItem onClick={closeWindow}>
-								Salir <MenubarShortcut>⌘Q</MenubarShortcut>
+							<MenubarItem
+								className="hover:cursor-pointer"
+								onClick={() => openExternalLink(`${process.env.NEXT_PUBLIC_API_URL}/panel`)}
+							>
+								<ExternalLink className="w-4 h-4 mr-2" />
+								Panel de Administración
+							</MenubarItem>
+							<MenubarItem className="hover:cursor-pointer" onClick={closeWindow}>
+								<X className="w-4 h-4 mr-2" />
+								Salir
 							</MenubarItem>
 						</MenubarContent>
 
 						<AboutDialog />
 					</Dialog>
 				</MenubarMenu>
-
-				<ExamplesNav />
 			</Menubar>
 		</WindowTitlebar>
 	);

@@ -2,7 +2,9 @@
 	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
-	"windows": ["main"],
+	"windows": [
+		"main"
+	],
 	"permissions": [
 		"path:default",
 		"event:default",
@@ -20,6 +22,7 @@
 		"window:allow-close",
 		"window:allow-center",
 		"log:default",
-		"log:default"
+		"log:default",
+		"shell:allow-open"
 	]
 }

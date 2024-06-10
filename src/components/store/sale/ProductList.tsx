@@ -1,11 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { cn, getType, priceFormatter } from "@/lib/utils";
 import BasicModal from "@/modals/basic-modal";
 import { useAppStore } from "@/store/AppStore";
-import { Beer, Minus, Plus, Sandwich, TrashIcon, Utensils } from "lucide-react";
+import { Beer, Minus, Plus, Utensils } from "lucide-react";
 import { useMemo } from "react";
 
 export default function ProductList() {
@@ -22,6 +21,15 @@ export default function ProductList() {
 		}, 0);
 	}, [products]);
 
+	const totalDiscountPrice = useMemo(() => {
+		return products.reduce((acc, product) => {
+			const discount = product.item?.discount?.value ?? 0;
+			const totalDiscount =
+				product.item.discount?.type === "PERCENTAGE" ? (product.item.sellPrice * discount) / 100 : discount;
+			return acc + totalDiscount * product.quantity;
+		}, 0);
+	}, [products]);
+
 	return (
 		<>
 			<BasicModal
@@ -33,9 +41,9 @@ export default function ProductList() {
 				onConfirm={confirmDelete}
 				type="cancelAndConfirm"
 			/>
-			<div className="flex flex-col gap-4 mt-4">
-				<div className="overflow-auto border rounded-lg">
-					<table className="w-full text-sm leading-none">
+			<div className="flex flex-col gap-4 mt-4 ">
+				<div className="h-full overflow-auto border rounded-md min-h-[250px]">
+					<table className="w-full text-md">
 						<thead>
 							<tr className="border-b">
 								<th className="px-4 py-2 text-left">Id</th>
@@ -128,20 +136,23 @@ export default function ProductList() {
 								);
 							})}
 						</tbody>
-						<tfoot>
-							<tr className="">
-								<td colSpan={6} className="px-4 py-2 text-right">
-									<span>
-										Total:{" "}
-										<span className="text-green-500">{priceFormatter.format(totalFinalPrice)}</span>
-									</span>
-								</td>
-							</tr>
-						</tfoot>
 					</table>
 				</div>
-				<div className="w-full text-sm text-right">
-					<Button className="">Completar compra</Button>
+				<div className="items-end w-full space-y-4 text-right">
+					{totalFinalPrice > 0 && (
+						<div>
+							<span className="m-4">
+								Descuentos Totales:{" "}
+								<span className="text-red-400">{priceFormatter.format(totalDiscountPrice)}</span>
+							</span>
+							<span>
+								Total: <span className="text-green-500">{priceFormatter.format(totalFinalPrice)}</span>
+							</span>
+						</div>
+					)}
+					<div>
+						<Button className="">Completar compra</Button>
+					</div>
 				</div>
 			</div>
 		</>

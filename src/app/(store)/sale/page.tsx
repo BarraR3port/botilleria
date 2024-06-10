@@ -1,5 +1,5 @@
-import SearchProducts from "@/components/store/sale/SearchProducts";
 import ProductList from "@/components/store/sale/ProductList";
+import SearchProducts from "@/components/store/sale/SearchProducts";
 
 export default function CartPage() {
 	return (

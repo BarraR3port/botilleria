@@ -8,6 +8,8 @@ import axios from "axios";
 import { debounce } from "lodash";
 import { Beer, Search, Utensils } from "lucide-react";
 import { useState } from "react";
+import { UserIcon } from "../user-icon";
+import { Input } from "@/components/ui/input";
 
 export default function SearchProducts() {
 	const [products, setProducts] = useState<Product[]>([]);
@@ -30,34 +32,36 @@ export default function SearchProducts() {
 		if (!response) return;
 
 		setProducts(response);
-	}, 500);
+	}, 300);
 
 	return (
 		<div className="relative flex flex-col gap-2">
 			<div>
-				<h1 className="text-2xl font-semibold">Buscar productos</h1>
+				<div className="flex">
+					<h1 className="w-full text-2xl font-semibold">Buscar productos</h1>
+					<UserIcon />
+				</div>
 				<p className="text-sm text-gray-500">Busca un producto por nombre o marca</p>
 			</div>
 
 			<div className="relative">
-				<div className="flex items-center p-2 border rounded-lg shadow-md">
-					<Search className="w-5 h-5 mr-2 " />
-					<input
-						type="text"
-						placeholder="Escribe el nombre o código de un producto..."
-						className="w-full outline-none"
-						onChange={e => findNewProducts(e.target.value)}
-						onClick={event => {
-							event.preventDefault();
-							event.stopPropagation();
-							if ("value" in event.target) {
-								if (typeof event.target?.value === "string") {
-									findNewProducts(event.target?.value);
-								}
+				<Input
+					leftIcon={<Search className="w-5 h-5 mr-2 " />}
+					type="text"
+					autoComplete="off"
+					placeholder="Escribe el nombre o código de un producto..."
+					className="w-full outline-none"
+					onChange={e => findNewProducts(e.target.value)}
+					onClick={event => {
+						event.preventDefault();
+						event.stopPropagation();
+						if ("value" in event.target) {
+							if (typeof event.target?.value === "string") {
+								findNewProducts(event.target?.value);
 							}
-						}}
-					/>
-				</div>
+						}
+					}}
+				/>
 
 				{products.length > 0 && (
 					<div className="absolute z-10 w-full overflow-y-auto border max-h-60 bg-background">

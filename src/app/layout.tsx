@@ -18,7 +18,7 @@ export default function MyApp({ children }: ExamplesLayoutProps) {
 			<head />
 			<body className="font-sans antialiased bg-transparent overflow-clip scrollbar-none">
 				<Greeting />
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
 					<div className="h-screen overflow-clip">
 						<Menu />
 						<div

@@ -12,10 +12,6 @@ import {
 
 const examples = [
 	{
-		name: "Dashboard",
-		href: "/examples/dashboard"
-	},
-	{
 		name: "Iniciar Sesión",
 		href: "/signIn"
 	},
@@ -32,7 +28,7 @@ const examples = [
 interface ExamplesNavProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ExamplesNav({ className, ..._props }: ExamplesNavProps) {
-	const pathname = usePathname() === "/" ? "/examples/music" : usePathname();
+	const pathname = usePathname();
 
 	return (
 		<MenubarMenu>
