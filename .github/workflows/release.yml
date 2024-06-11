@@ -55,6 +55,7 @@ jobs:
               });
               release = data;
             }
+            console.log(`Release ID: ${release.id}`);
             return { release_id: release.id };
 
   build-tauri:
@@ -122,6 +123,7 @@ jobs:
         run: |
           assets=($(find ./src-tauri/target/release/bundle -type f))
           for asset in "${assets[@]}"; do
+            echo "Uploading $asset"
             gh release upload ${{ needs.create-or-find-release.outputs.release_id }} "$asset" --clobber
           done
         env:
