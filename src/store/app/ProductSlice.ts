@@ -17,6 +17,12 @@ interface ProductItem {
 	quantity: number;
 }
 
+export interface ProductSale extends ProductItem {
+	finalPrice: number;
+	originalPrice: number;
+	appliedDiscount: number;
+}
+
 export type ProductSlice = {
 	products: ProductItem[];
 	productToDelete: Product | null;
@@ -26,6 +32,7 @@ export type ProductSlice = {
 	removeOneProduct: (product: Product, confirmDelete?: boolean) => void;
 	confirmDelete: () => void;
 	checkProductAvailability: (product: ProductItem) => Promise<boolean>;
+	getProductSales: () => ProductSale[];
 };
 
 export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & ProductSlice, [], [], ProductSlice> = (
@@ -116,6 +123,28 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 		if (!productToDelete) return;
 		set({
 			productToDelete: null
+		});
+	},
+	getProductSales: () => {
+		const { products } = get();
+		return products.map(product => {
+			const discount = product.item?.discount?.value ?? 0;
+			const totalDiscount =
+				product.item.discount?.type === "PERCENTAGE" ? (product.item.sellPrice * discount) / 100 : discount;
+			const productPrice = product.item.sellPrice - totalDiscount;
+
+			const appliedDiscount = totalDiscount * product.quantity;
+
+			const originalPrice = product.item.sellPrice * product.quantity;
+
+			const finalPrice = productPrice * product.quantity;
+
+			return {
+				...product,
+				finalPrice,
+				originalPrice,
+				appliedDiscount
+			};
 		});
 	}
 });

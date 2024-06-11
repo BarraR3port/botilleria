@@ -26,7 +26,7 @@ export default function BasicModal({ open, onClose, onConfirm, loading, title, d
 
 	return (
 		<Modal title={title} description={description} open={open} onClose={onClose}>
-			<div className="pt-6 space-x-2 flex items-center justify-end w-full">
+			<div className="flex items-center justify-end w-full pt-6 space-x-2">
 				{type === "cancelAndConfirm" && (
 					<Button variant="secondary" onClick={onClose} disabled={loading}>
 						Cancelar

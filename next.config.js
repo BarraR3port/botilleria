@@ -10,7 +10,7 @@ const nextConfig = {
 	output: "export",
 	distDir: "dist",
 	env: {
-		API_URL: "https://botilleria-admin.vercel.app"
+		API_URL: process.env.API_URL
 	}
 };
 

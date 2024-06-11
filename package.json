@@ -64,6 +64,7 @@
 		"clsx": "2.0.0",
 		"cmdk": "0.2.0",
 		"date-fns": "2.30.0",
+		"framer-motion": "^11.2.10",
 		"js-cookie": "3.0.5",
 		"lodash": "4.17.21",
 		"lucide-react": "0.263.1",
@@ -109,8 +110,5 @@
 		"taze": "0.11.2",
 		"typescript": "5.1.6"
 	},
-	"trustedDependencies": [
-		"@biomejs/biome",
-		"sharp"
-	]
+	"trustedDependencies": ["@biomejs/biome", "sharp"]
 }

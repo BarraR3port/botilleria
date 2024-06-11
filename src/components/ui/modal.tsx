@@ -3,11 +3,11 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
 
 interface ModalProps {
-	title: string;
-	description: string;
+	title: string | React.ReactNode;
+	description: string | React.ReactNode;
 	open: boolean;
 	onClose?: () => void;
-	children: React.ReactNode;
+	children?: React.ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = ({ title, description, open, onClose, children }) => {
