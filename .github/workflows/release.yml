@@ -117,6 +117,16 @@ jobs:
         with:
           releaseId: ${{ needs.create-or-find-release.outputs.release_id }}
 
+      - name: Upload artifacts to release
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          assets=($(find ./src-tauri/target/release/bundle -type f))
+          for asset in "${assets[@]}"; do
+            gh release upload ${{ needs.create-or-find-release.outputs.release_id }} "$asset" --clobber
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   publish-release:
     permissions:
       contents: write
