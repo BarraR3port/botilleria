@@ -1,4 +1,4 @@
-name: "release"
+name: "release TEST"
 on:
   workflow_dispatch:
   push:
@@ -57,16 +57,17 @@ jobs:
             }
             console.log(`Release ID: ${release.id}`);
             return { release_id: release.id };
+      - name: Print Release Id
+        run: echo ${{ steps.set-release-id.outputs.release_id }}
+      - name: Print Release Id 2
+        run: echo ${{ needs.create-or-find-release.outputs.release_id }}
+      - name: Print Release Id 3
+        run: echo ${{ needs.create-or-find-release.outputs }}
   build-tauri:
     needs: create-or-find-release
     permissions:
       contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [windows-latest, macos-latest, ubuntu-latest]
-
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
