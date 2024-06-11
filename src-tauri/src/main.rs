@@ -54,6 +54,8 @@ fn main() {
                 window.open_devtools();
                 //window.close_devtools();
             }
+            let window = app.get_webview_window("main").unwrap();
+            window.open_devtools();
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![greet])
