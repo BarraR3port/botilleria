@@ -24,20 +24,20 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
 		if (loadingSession) {
 			return;
 		}
-		if (getSession() === null && pathName !== "/signIn") {
+		if (getSession() === null && pathName !== "/signIn" && pathName !== "/recover") {
 			router.push("/signIn");
 		}
 	}, [getSession, session, loadingSession, pathName]);
 
-	if (loadingSession && session !== null && pathName !== "/signIn") {
+	if (loadingSession && session !== null && pathName !== "/signIn" && pathName !== "/recover") {
 		return <Loading />;
 	}
 
-	if (loadingSession && session === null && pathName !== "/signIn") {
+	if (loadingSession && session === null && pathName !== "/signIn" && pathName !== "/recover") {
 		return <Loading />;
 	}
 
-	if (!loadingSession && session === null && pathName !== "/signIn") {
+	if (!loadingSession && session === null && pathName !== "/signIn" && pathName !== "/recover") {
 		return <Loading />;
 	}
 
