@@ -108,5 +108,5 @@
 		"taze": "0.11.2",
 		"typescript": "5.1.6"
 	},
-	"trustedDependencies": ["@biomejs/biome"]
+	"trustedDependencies": ["@biomejs/biome", "sharp"]
 }

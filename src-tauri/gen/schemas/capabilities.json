@@ -1,1 +1,28 @@
-{"main-capability":{"identifier":"main-capability","description":"Capability for the main window","local":true,"windows":["main"],"permissions":["path:default","event:default","window:default","app:default","resources:default","menu:default","tray:default","window:allow-set-title","os:allow-os-type","os:allow-arch","window:allow-start-dragging","window:allow-toggle-maximize","window:allow-minimize","window:allow-close","window:allow-center","log:default","log:default","shell:allow-open"]}}
+{
+	"main-capability": {
+		"identifier": "main-capability",
+		"description": "Capability for the main window",
+		"local": true,
+		"windows": ["main"],
+		"permissions": [
+			"path:default",
+			"event:default",
+			"window:default",
+			"app:default",
+			"resources:default",
+			"menu:default",
+			"tray:default",
+			"window:allow-set-title",
+			"os:allow-os-type",
+			"os:allow-arch",
+			"window:allow-start-dragging",
+			"window:allow-toggle-maximize",
+			"window:allow-minimize",
+			"window:allow-close",
+			"window:allow-center",
+			"log:default",
+			"log:default",
+			"shell:allow-open"
+		]
+	}
+}
