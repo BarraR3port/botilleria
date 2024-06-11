@@ -21,7 +21,7 @@ const examples = [
 	},
 	{
 		name: "Ventas",
-		href: "/sale"
+		href: "/"
 	}
 ];
 

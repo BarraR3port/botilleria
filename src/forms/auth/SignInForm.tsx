@@ -45,7 +45,7 @@ export function SignInForm() {
 
 		if (typeof response === "object" && "user" in response && "backendTokens" in response) {
 			updateSession(response);
-			router.push("/sale");
+			router.push("/");
 		}
 
 		setLoading(false);

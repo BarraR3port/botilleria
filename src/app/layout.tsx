@@ -1,11 +1,11 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 
-import { Greeting } from "@/components/greeting";
 import { Menu } from "@/components/menu";
 import { StyleSwitcher } from "@/components/style-switcher";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SessionProvider } from "@/contexts/SessionContext";
 import { cn } from "@/lib/utils";
 
 interface ExamplesLayoutProps {
@@ -14,10 +14,9 @@ interface ExamplesLayoutProps {
 
 export default function MyApp({ children }: ExamplesLayoutProps) {
 	return (
-		<html lang="en" suppressHydrationWarning className="bg-black overflow-clip">
+		<html lang="es" suppressHydrationWarning className="bg-black overflow-clip">
 			<head />
 			<body className="font-sans antialiased bg-transparent overflow-clip scrollbar-none">
-				<Greeting />
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
 					<div className="h-screen overflow-clip">
 						<Menu />
@@ -28,7 +27,7 @@ export default function MyApp({ children }: ExamplesLayoutProps) {
 								"scrollbar scrollbar-track-transparent scrollbar-thumb-accent scrollbar-thumb-rounded-md"
 							)}
 						>
-							{children}
+							<SessionProvider>{children}</SessionProvider>
 						</div>
 					</div>
 					<TailwindIndicator />

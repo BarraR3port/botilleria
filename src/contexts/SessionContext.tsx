@@ -24,20 +24,20 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
 		if (loadingSession) {
 			return;
 		}
-		if (getSession() === null) {
+		if (getSession() === null && pathName !== "/signIn") {
 			router.push("/signIn");
 		}
 	}, [getSession, session, loadingSession, pathName]);
 
-	if (loadingSession && session !== null) {
+	if (loadingSession && session !== null && pathName !== "/signIn") {
 		return <Loading />;
 	}
 
-	if (loadingSession && session === null) {
+	if (loadingSession && session === null && pathName !== "/signIn") {
 		return <Loading />;
 	}
 
-	if (!loadingSession && session === null) {
+	if (!loadingSession && session === null && pathName !== "/signIn") {
 		return <Loading />;
 	}
 

@@ -44,6 +44,7 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 		} else {
 			const newProducts = [...products];
 			newProducts[productIndex].quantity += quantity;
+			newProducts[productIndex].item = product;
 			set({
 				products: newProducts
 			});
@@ -55,6 +56,7 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 		if (productIndex === -1) return;
 		const newProducts = [...products];
 		newProducts[productIndex].quantity += 1;
+		newProducts[productIndex].item = product;
 		set({
 			products: newProducts
 		});
@@ -69,6 +71,7 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 				productToDelete: product
 			});
 		} else {
+			newProducts[productIndex].item = product;
 			newProducts[productIndex].quantity -= 1;
 			set({
 				products: newProducts
