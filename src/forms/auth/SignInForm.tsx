@@ -36,8 +36,6 @@ export function SignInForm() {
 	const onSubmit: SubmitHandler<SignInFromType> = async data => {
 		setLoading(true);
 
-		console.log("URL", process.env.API_URL, process.env.NEXT_PUBLIC_API_URL);
-
 		const response: AuthResponse = await axios
 			.post(`${process.env.API_URL}/api/auth/signIn`, {
 				...data
