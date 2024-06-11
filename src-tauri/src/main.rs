@@ -17,6 +17,7 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .format(move |out, message, record| {

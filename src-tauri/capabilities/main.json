@@ -3,6 +3,9 @@
 	"identifier": "main-capability",
 	"description": "Capability for the main window",
 	"windows": ["main"],
+	"remote": {
+		"urls": ["http://localhost:3001", "https://botilleria-admin.vercel.app"]
+	},
 	"permissions": [
 		"path:default",
 		"event:default",
@@ -21,6 +24,17 @@
 		"window:allow-center",
 		"log:default",
 		"log:default",
-		"shell:allow-open"
+		"shell:allow-open",
+		{
+			"identifier": "http:default",
+			"allow": [
+				{
+					"url": "http://localhost:3001"
+				},
+				{
+					"url": "https://botilleria-admin.vercel.app"
+				}
+			]
+		}
 	]
 }
