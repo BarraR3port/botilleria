@@ -5,10 +5,13 @@ const nextConfig = {
 	swcMinify: true,
 	images: {
 		unoptimized: true,
-		domains: ["avatars.githubusercontent.com", "images.unsplash.com"]
+		domains: ["avatars.githubusercontent.com", "images.unsplash.com", "botilleria-admin.vercel.app"]
 	},
 	output: "export",
-	distDir: "dist"
+	distDir: "dist",
+	env: {
+		API_URL: "https://botilleria-admin.vercel.app"
+	}
 };
 
 module.exports = nextConfig;

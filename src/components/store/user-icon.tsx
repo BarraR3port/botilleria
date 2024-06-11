@@ -91,7 +91,7 @@ export function UserIcon({ navBar }: UserIconProps) {
 				<DropdownMenuGroup>
 					<DropdownMenuItem
 						className="hover:cursor-pointer"
-						onClick={() => openExternalLink(`${process.env.NEXT_PUBLIC_API_URL}/panel`)}
+						onClick={() => openExternalLink(`${process.env.API_URL}/panel`)}
 					>
 						Panel
 						<DropdownMenuShortcut>

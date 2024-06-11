@@ -92,7 +92,7 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 		if (!session) return false;
 		const response = await axios
 			.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/products/${product.item.id}`,
+				`${process.env.API_URL}/api/products/${product.item.id}`,
 				{
 					quantity: product.quantity
 				},

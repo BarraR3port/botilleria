@@ -31,7 +31,7 @@ export function RecoverForm() {
 	const onSubmit: SubmitHandler<RecoverFromType> = async data => {
 		setLoading(true);
 		const response = await axios
-			.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/recover`, data)
+			.post(`${process.env.API_URL}/api/auth/recover`, data)
 			.catch(res => catchAxiosResponse(res, form))
 			.then(res => handleAxiosResponse(res, form));
 

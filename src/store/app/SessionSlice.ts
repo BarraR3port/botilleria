@@ -69,7 +69,7 @@ export const createSessionSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 		}
 		await axios
 			.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh`,
+				`${process.env.API_URL}/api/auth/refresh`,
 				{},
 				{
 					headers: {
@@ -108,7 +108,7 @@ export const createSessionSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 			}
 			axios
 				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh`,
+					`${process.env.API_URL}/api/auth/refresh`,
 					{},
 					{
 						headers: {

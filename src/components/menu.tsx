@@ -54,7 +54,7 @@ export function Menu() {
 							</DialogTrigger>
 							<MenubarItem
 								className="hover:cursor-pointer"
-								onClick={() => openExternalLink(`${process.env.NEXT_PUBLIC_API_URL}/panel`)}
+								onClick={() => openExternalLink(`${process.env.API_URL}/panel`)}
 							>
 								<ExternalLink className="w-4 h-4 mr-2" />
 								Panel de Administración

@@ -22,7 +22,7 @@ export default function SearchProducts() {
 			return;
 		}
 		const response = await axios
-			.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products?searchAnyKind=${query}`, {
+			.get(`${process.env.API_URL}/api/products?searchAnyKind=${query}`, {
 				headers: {
 					Authorization: `Bearer ${session.backendTokens.accessToken}`
 				}
