@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect } from "react";
 
 import Loading from "@/components/store/loading";
 import { useAppStore } from "@/store/AppStore";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const SessionContext = createContext({});
 
@@ -18,6 +18,7 @@ type SessionProviderProps = {
 export const SessionProvider = ({ children }: SessionProviderProps) => {
 	const { getSession, session, loadingSession } = useAppStore();
 	const router = useRouter();
+	const pathName = usePathname();
 
 	useEffect(() => {
 		if (loadingSession) {
@@ -26,7 +27,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
 		if (getSession() === null) {
 			router.push("/signIn");
 		}
-	}, [getSession, session, loadingSession]);
+	}, [getSession, session, loadingSession, pathName]);
 
 	if (loadingSession && session !== null) {
 		return <Loading />;
