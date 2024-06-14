@@ -21,7 +21,8 @@ export default function ProductList() {
 		confirmDelete,
 		closeDeleteModal,
 		session,
-		getProductSales
+		getProductSales,
+		clearProducts
 	} = useAppStore();
 	const [openFinishModal, setOpenFinishModal] = useState(false);
 	const [loadingCashPayment, setLoadingCashPayment] = useState(false);
@@ -74,9 +75,10 @@ export default function ProductList() {
 				variant: "success",
 				duration: 1500
 			});
-			setOpenFinishModal(false);
+			clearProducts();
 		}
 		setLoadingCashPayment(false);
+		setOpenFinishModal(false);
 	};
 
 	const finishSaleWithTransBank = async () => {
@@ -107,9 +109,10 @@ export default function ProductList() {
 				variant: "success",
 				duration: 1500
 			});
-			setOpenFinishModal(false);
+			clearProducts();
 		}
 		setLoadingTransBankPayment(false);
+		setOpenFinishModal(false);
 	};
 
 	return (
@@ -180,7 +183,7 @@ export default function ProductList() {
 						<tbody>
 							{products.length === 0 && (
 								<tr>
-									<td colSpan={5} className="px-4 py-2 text-center">
+									<td colSpan={7} className="h-48 px-4 py-2 text-center text-gray-400 align-middle">
 										Agrega productos a la lista
 									</td>
 								</tr>
@@ -294,11 +297,15 @@ export default function ProductList() {
 							</span>
 						</div>
 					)}
-					<div>
-						<Button onClick={() => setOpenFinishModal(true)} className="">
-							Completar compra
-						</Button>
-					</div>
+					<Button
+						onClick={() => {
+							setOpenFinishModal(true);
+						}}
+						disabled={products.length === 0}
+						variant="success"
+					>
+						Completar compra
+					</Button>
 				</div>
 			</div>
 		</>

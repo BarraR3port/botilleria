@@ -75,17 +75,8 @@
         --error: 0 62.8% 30.6%;
         --error-foreground: 0 0% 98%;
 
-        --success-50: 98 76% 5%;
-        --success-100: 101 73% 10%;
-        --success-200: 100 75% 20%;
-        --success-300: 100 74% 30%;
-        --success-400: 100 74% 40%;
-        --success-500: 100 74% 50%;
-        --success-600: 100 74% 60%;
-        --success-700: 100 74% 70%;
-        --success-800: 100 75% 80%;
-        --success-900: 101 73% 90%;
-        --success-950: 101 76% 95%;
+        --success: 100 74% 40%;
+        --success-foreground: 0 0% 98%;
 
         --info: 207 100% 50%;
     }

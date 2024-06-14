@@ -33,6 +33,7 @@ export type ProductSlice = {
 	confirmDelete: () => void;
 	checkProductAvailability: (product: ProductItem) => Promise<boolean>;
 	getProductSales: () => ProductSale[];
+	clearProducts: () => void;
 };
 
 export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & ProductSlice, [], [], ProductSlice> = (
@@ -145,6 +146,12 @@ export const createProductSlice: StateCreator<SessionSlice & SettingsSlice & Pro
 				originalPrice,
 				appliedDiscount
 			};
+		});
+	},
+	clearProducts: () => {
+		set({
+			products: [],
+			productToDelete: null
 		});
 	}
 });

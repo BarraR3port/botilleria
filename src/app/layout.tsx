@@ -7,6 +7,8 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface ExamplesLayoutProps {
 	children: React.ReactNode;
@@ -18,17 +20,20 @@ export default function MyApp({ children }: ExamplesLayoutProps) {
 			<head />
 			<body className="font-sans antialiased bg-transparent overflow-clip scrollbar-none">
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+					<Toaster />
 					<div className="h-screen overflow-clip">
-						<Menu />
-						<div
-							className={cn(
-								"h-screen overflow-auto border-t bg-background pb-8",
-								// "scrollbar-none"
-								"scrollbar scrollbar-track-transparent scrollbar-thumb-accent scrollbar-thumb-rounded-md"
-							)}
-						>
-							<SessionProvider>{children}</SessionProvider>
-						</div>
+						<TooltipProvider>
+							<Menu />
+							<div
+								className={cn(
+									"h-screen overflow-auto border-t bg-background pb-8",
+									// "scrollbar-none"
+									"scrollbar scrollbar-track-transparent scrollbar-thumb-accent scrollbar-thumb-rounded-md"
+								)}
+							>
+								<SessionProvider>{children}</SessionProvider>
+							</div>
+						</TooltipProvider>
 					</div>
 					<TailwindIndicator />
 				</ThemeProvider>
