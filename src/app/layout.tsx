@@ -16,10 +16,10 @@ interface ExamplesLayoutProps {
 
 export default function MyApp({ children }: ExamplesLayoutProps) {
 	return (
-		<html lang="es" suppressHydrationWarning className="bg-black overflow-clip">
+		<html lang="es" suppressHydrationWarning className="overflow-clip">
 			<head />
 			<body className="font-sans antialiased bg-transparent overflow-clip scrollbar-none">
-				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+				<ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
 					<Toaster />
 					<div className="h-screen overflow-clip">
 						<TooltipProvider>
