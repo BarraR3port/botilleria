@@ -48,6 +48,9 @@ export function RecoverForm() {
 					setOpen(false);
 					router.push("/signIn");
 				}}
+				onClose={() => {
+					setOpen(false);
+				}}
 				loading={loading}
 			/>
 			<Form {...form}>
