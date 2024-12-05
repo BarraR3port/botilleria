@@ -31,11 +31,9 @@ export function Menu() {
 
 	return (
 		<WindowTitlebar
-			// controlsOrder="left"
-			className="pl-0"
-			//windowControlsProps={{ platform: "windows", justify: false }}
+			className="pl-0 bg-primary"
 		>
-			<Menubar className="pl-2 border-b border-none rounded-none lg:pl-3">
+			<Menubar className="pl-2 border-b border-none rounded-none lg:pl-3 bg-primary ">
 				<MenubarMenu>
 					<div className="inline-flex items-center h-fit w-fit text-cyan-500">
 						<Beer className="w-5 h-5" />

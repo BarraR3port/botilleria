@@ -28,11 +28,11 @@ export default function BasicModal({ open, onClose, onConfirm, loading, title, d
 		<Modal title={title} description={description} open={open} onClose={onClose}>
 			<div className="flex items-center justify-end w-full pt-6 space-x-2">
 				{type === "cancelAndConfirm" && (
-					<Button variant="secondary" onClick={onClose} disabled={loading}>
+					<Button variant="error" onClick={onClose} disabled={loading}>
 						Cancelar
 					</Button>
 				)}
-				<Button onClick={onConfirm} loading={loading}>
+				<Button onClick={onConfirm} loading={loading} variant="primary">
 					Confirmar
 				</Button>
 			</div>

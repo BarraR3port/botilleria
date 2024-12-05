@@ -60,7 +60,8 @@ module.exports = {
 				info: {
 					DEFAULT: "hsl(var(--info))",
 					foreground: "hsl(var(--info-foreground))"
-				}
+				},
+				text: "hsl(var(--text))"
 			},
 			borderRadius: {
 				lg: "var(--radius)",
@@ -84,6 +85,9 @@ module.exports = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out"
+			},
+			fontSize: {
+				base: "1.25rem"
 			}
 		}
 	},

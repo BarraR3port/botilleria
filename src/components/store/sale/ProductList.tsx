@@ -130,20 +130,20 @@ export default function ProductList() {
 				title="Selecciona el Método de pago:"
 				description={
 					<div className="w-full max-w-md space-y-6">
-						<div>Método de pago para completar la compra.</div>
+						<div className="text-secondary">Método de pago para completar la compra.</div>
 						<div className="grid gap-4">
 							<Card className="flex items-center justify-between p-4" onClick={finishSaleWithCash}>
 								<div className="flex items-center gap-4">
 									<DollarSignIcon className="w-6 h-6" />
 									<div>
 										<h4 className="font-medium">Efectivo</h4>
-										<p className="text-sm text-gray-400">Procesar pago en efectivo.</p>
+										<p className="text-sm text-text-secondary">Procesar pago en efectivo.</p>
 									</div>
 								</div>
 								{loadingCashPayment ? (
 									<Loader2 className={"animate-spin w-5 h-5"} />
 								) : (
-									<ChevronRightIcon className="w-5 h-5 text-gray-400" />
+									<ChevronRightIcon className="w-5 h-5 text-text-secondary" />
 								)}
 							</Card>
 							<Card className="flex items-center justify-between p-4" onClick={finishSaleWithTransBank}>
@@ -151,13 +151,13 @@ export default function ProductList() {
 									<CreditCardIcon className="w-6 h-6" />
 									<div>
 										<h4 className="font-medium">TransBank</h4>
-										<p className="text-sm text-gray-400">Procesar pago con TransBank</p>
+										<p className="text-sm text-text-secondary">Procesar pago con TransBank</p>
 									</div>
 								</div>
 								{loadingTransBankPayment ? (
 									<Loader2 className={"animate-spin w-5 h-5"} />
 								) : (
-									<ChevronRightIcon className="w-5 h-5 text-gray-400" />
+									<ChevronRightIcon className="w-5 h-5 text-text-secondary" />
 								)}
 							</Card>
 						</div>
@@ -183,7 +183,7 @@ export default function ProductList() {
 						<tbody>
 							{products.length === 0 && (
 								<tr>
-									<td colSpan={7} className="h-48 px-4 py-2 text-center text-gray-400 align-middle">
+									<td colSpan={7} className="h-48 px-4 py-2 text-center text-text-secondary align-middle">
 										Agrega productos a la lista
 									</td>
 								</tr>
@@ -223,14 +223,14 @@ export default function ProductList() {
 											/>
 										</td>
 										<td className="px-4 py-2 text-left">
-											<span className="text-gray-400 ">
+											<span className="text-secondary ">
 												<AnimatedNumber value={initialPrice} format={priceFormatter.format} />
 											</span>
 										</td>
 										<td
 											className={cn(
-												"px-4 py-2 text-left text-red-400",
-												product.item?.discount?.name === undefined && "text-white"
+												"px-4 py-2 text-left text-destructive",
+												product.item?.discount?.name === undefined && "text-black"
 											)}
 										>
 											{finalDiscountPrice ? (
@@ -302,7 +302,6 @@ export default function ProductList() {
 							setOpenFinishModal(true);
 						}}
 						disabled={products.length === 0}
-						variant="success"
 					>
 						Completar compra
 					</Button>

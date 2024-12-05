@@ -1,8 +1,3 @@
 "use client";
 //@ts-ignore
-export const isTauriApp = () => {
-	if (typeof window !== "undefined") {
-		return false;
-	}
-	return true;
-};
+export const isTauriApp = () => typeof window !== "undefined" && typeof window.__TAURI_INTERNALS__ !== "undefined";

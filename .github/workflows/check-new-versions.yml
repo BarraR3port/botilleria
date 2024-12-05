@@ -10,14 +10,18 @@ jobs:
   check_for_new_versions:
     name: Check if new version is available
     runs-on: ubuntu-latest
+    outputs:
+      new_release_published: ${{ steps.semantic_release.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
     permissions:
       contents: write
       packages: write
       pull-requests: write
       issues: write
+      actions: read
     steps:
       - name: Setup Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Git user to Actions Bot
         run: |
@@ -27,7 +31,7 @@ jobs:
       - name: Semantic Release
         id: semantic_release
         uses: cycjimmy/semantic-release-action@v4
-        with: 
+        with:
           semantic_version: "24.0.0"
           extra_plugins: |
             conventional-changelog-conventionalcommits
@@ -39,3 +43,21 @@ jobs:
             semantic-release-replace-plugin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Release Status
+        if: steps.semantic_release.outputs.new_release_published == 'true'
+        run: |
+          echo "New release was published!"
+          echo "Version: ${{ steps.semantic_release.outputs.new_release_version }}"
+
+  trigger_build:
+    needs: check_for_new_versions
+    if: needs.check_for_new_versions.outputs.new_release_published == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger auto-tauri-build workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: new-release-created
+          client-payload: '{"version": "${{ needs.check_for_new_versions.outputs.new_release_version }}"}'

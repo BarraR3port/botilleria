@@ -3,108 +3,80 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Inter";
-    src: url("../assets/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+	font-family: "Inter";
+	src: url("../assets/Inter-VariableFont_slnt,wght.ttf") format("truetype");
 }
 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
+	:root {
+		--background: 204 24% 96%;
+		--foreground: 240 4% 5%;
+		--card: 204 24% 96%;
+		--card-foreground: 240 4% 5%;
+		--popover: 204 24% 96%;
+		--popover-foreground: 240 4% 5%;
+		--primary: 209 50% 50%;
+		--primary-foreground: 240 4% 5%;
+		--secondary: 209 72% 71%;
+		--secondary-foreground: 240 4% 5%;
+		--muted: 205 24% 20%;
+		--muted-foreground: 240 5% 70%;
+		--accent: 209 93% 63%;
+		--accent-foreground: 240 4% 5%;
+		--destructive: 0 85% 60%;
+		--destructive-foreground: 240 4% 5%;
 
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
+		--border: 214.3 31.8% 91.4%;
+		--input: 205 24% 20%;
+		--ring: 209 93% 40%;
+		--radius: 0.5rem;
+	}
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
+	.dark {
+		--background: 204 24% 4%;
+		--foreground: 240 4% 95%;
+		--card: 204 24% 4%;
+		--card-foreground: 240 4% 95%;
+		--popover: 204 24% 4%;
+		--popover-foreground: 240 4% 95%;
+		--primary: 209 50% 50%;
+		--primary-foreground: 204 24% 4%;
+		--secondary: 209 72% 29%;
+		--secondary-foreground: 240 4% 95%;
+		--muted: 205 24% 80%;
+		--muted-foreground: 240 4% 95%;
+		--accent: 209 93% 37%;
+		--accent-foreground: 240 4% 95%;
+		--destructive: 0 62% 30%;
+		--destructive-foreground: 240 6% 10%;
+		--border: 217.2 32.6% 17.5%;
+		--input: 205 24% 80%;
+		--ring: 209 93% 60%;
 
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
-
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
-
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-        --ring: 222.2 84% 4.9%;
-
-        --radius: 0.5rem;
-    }
-
-    .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
-
-        --card: 222.2 84% 4.9%;
-        --card-foreground: 210 40% 98%;
-
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
-
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 11.2%;
-
-        --secondary: 217.2 32.6% 17.5%;
-        --secondary-foreground: 210 40% 98%;
-
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
-
-        --accent: 217.2 32.6% 17.5%;
-        --accent-foreground: 210 40% 98%;
-
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
-
-        --border: 217.2 32.6% 17.5%;
-        --input: 217.2 32.6% 17.5%;
-        --ring: 212.7 26.8% 83.9%;
-
-        --warning: 40 100% 50.2%;
-        --warning-foreground: 0 0% 98%;
-
-        --error: 0 62.8% 30.6%;
-        --error-foreground: 0 0% 98%;
-
-        --success: 100 74% 40%;
-        --success-foreground: 0 0% 98%;
-
-        --info: 207 100% 50%;
-    }
+	}
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+	* {
+		@apply border-border;
+	}
 
-    body {
-        @apply box-border bg-background text-foreground;
-        font-feature-settings:
-            "rlig" 1,
-            "calt" 1;
-    }
+	body {
+		@apply box-border text-foreground text-lg;
+		font-feature-settings: "rlig" 1, "calt" 1;
+	}
 }
 
 @layer utilities {
-    .min-h-screen {
-        min-height: 100vh;
-        /* Fallback */
-        min-height: 100dvh;
-    }
+	.min-h-screen {
+		min-height: 100vh;
+		/* Fallback */
+		min-height: 100dvh;
+	}
 
-    .h-screen {
-        height: 100vh;
-        /* Fallback */
-        height: 100dvh;
-    }
+	.h-screen {
+		height: 100vh;
+		/* Fallback */
+		height: 100dvh;
+	}
 }
